@@ -128,6 +128,10 @@ Sonny added a profile pic of the person in the header with an img tag, but I'm n
 
 #### Implementing Sticky Header
 
-
+Go to the outer-most div
+z-50 adds an additional "layer" to the page
+`<div className="shadow-sm border-b bg-white sticky top-0 z-50">`
 
 ---
+
+#### 
