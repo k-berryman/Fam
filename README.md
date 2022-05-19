@@ -184,3 +184,12 @@ Create Post component
 Pass down props from Posts to Post
 
 `flex-1` takes up as much room as it can
+
+We're gonna make another custom utility class called btn.
+In `globals.css`
+```
+  .btn {
+    @apply h-7 hover:scale-125 cursor-pointer
+    transition-all duration-150 ease-out
+  }
+```
