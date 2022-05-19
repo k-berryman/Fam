@@ -299,3 +299,64 @@ Next doesn't make any of our env vars public unless we write NEXT_PUBLIC_envname
 Restart our server due to changing env vars
 
 #### Implementing a custom sign in page
+Add the following after providers in `[...nextauth].js` would add in a default log in page, but we're going to make a custom log in page
+```
+theme: {
+    logo: "https://links.papareact.com/sq0",
+    brandColor: "#F13287",
+    colorScheme: "auto"
+}
+```
+
+Add the following instead
+```
+pages: {
+    signIn: "auth/signin",
+}
+```
+
+Click `pages/` and at the `index.js` level, create a new folder called `auth`. In that, create `signin.js` and make a functional component. Keep file name as lower case, but the component can be camel cased.
+
+Go to `http://localhost:3000/auth/signin` and it displays the h1 we added. It's a very simple sign in page.
+
+Before the page is rendered (on server, SSR), prep page in a certain way. SSR is per request. Go into `pages/auth/signin.js` and add this specific function
+```
+// Middleware -- on server -- SSR
+export async function getServerSideProps() {
+  // Gets providers from pages/api/auth/[...nextauth].js
+  const providers = await getProviders();
+
+  // Pass it to the client
+  return {
+    props: {
+      providers
+    }
+  }
+}
+```
+
+Make sure to include `import { getProviders, signIn as SignIntoProvider } from "next-auth/react";`
+
+**This passes data from `[...nextauth].js` to `getServerSideProps()` middleware function in `signin.js` to the `signIn` component in `signin.js` for the browser**
+
+Put the following inside the signIn component return statement
+```
+<>
+    {Object.values(providers).map((provider) => (
+      <div key={provider.name}>
+        <button onClick={() => SignIntoProvider(provider.id)}>
+          Sign in with {provider.name}
+        </button>
+      </div>
+    ))}
+    </>
+```
+
+We need to authorize the url
+Click Request details to see redirect_uri that needs to be authorized on Google's side. Go to cloud.google.com, click console, make sure FamWebapp is opened, click API & Services -> Credentials, Look under `OAuth 2.0 Client IDs`, click edit oauth client, under "Authorized JavaScript origins" add localhost:3000, under `Authorized redirect URIs` enter in that original request details redirect_uri code we saw
+
+**Google Auth uses OAuth 2.0**
+
+Now logging in works!!!!
+
+#### Now we need to tap into the session we're logged into
