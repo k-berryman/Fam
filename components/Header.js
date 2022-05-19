@@ -15,9 +15,9 @@ import {
 function Header() {
   return (
     <div className="shadow-sm border-b bg-white sticky top-0 z-50">
-      <div className='flex justify-between mt-4 max-w-6xl mx-5 lg:mx-auto'>
+      <div className='flex justify-between mt-4 max-w-6xl mx-5 lg:mx-auto pb-4'>
         {/* Left - Display App Name */}
-        <div className='relative hidden lg:inline-grid h-32 w-32'>
+        <div className='relative hidden lg:inline-grid h-30 w-32'>
           <Image
             src='https://links.papareact.com/ocw'
             layout='fill'

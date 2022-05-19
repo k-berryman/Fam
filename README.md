@@ -193,3 +193,109 @@ In `globals.css`
     transition-all duration-150 ease-out
   }
 ```
+
+### MiniProfile Component
+Skipping this part
+
+### Suggestions Component
+Skipping this part
+
+### NextAuth.js
+User Authentication
+We're going to make our own custom sign in page
+SignIn with Google
+v4.0
+
+`npm i nextauth@beta`
+In `package.json`, get rid of carrot
+
+`pages/api` has to do with the middleware
+Go to localhost:3000/api/hello and we get a response
+
+An API comes out of the box with Next.js
+In `pages/api`, create a folder called `auth`
+In `auth`, create `[...nextauth].js`
+and start with
+```
+import NextAuth from "next-auth"
+import GithubProvider from "next-auth/providers/github"
+
+export default NextAuth({
+  providers: [
+    GithubProvider({
+      clientId: process.env.GITHUB_ID,
+      clientSecret: process.env.GITHUB_SECRET,
+    })
+  ]
+})
+```
+
+Remember to use environment variables!! Do not commit sensitive info to repo
+
+Now we need our Google credentials from Firebase
+Click go to console, start new project, enter name as "FamWebapp", disable analytics, go to project settings, Under "your apps" click web icon, name app "Fam", don't select hosting, register app, copy the given code, continue to console
+
+In main dir, create `firebase.js` and paste in the code
+
+Install firebase
+`npm i firebase`
+
+Firebasev9 has modularized, so just import what you need
+
+also import `getApps` and `getApp` due to Next's SSR
+Sometimes there's accidentally 2 instances of the same firebase -- we want to make sure there's only one using the singleton pattern. Therefore, change the following
+```
+// Import the functions you need from the SDKs you need
+import { initializeApp, getApps, getApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyBBmuSXw3xDpyLcLbJXlbo4tDIgsR9Fz2U",
+  authDomain: "famwebapp-abe61.firebaseapp.com",
+  projectId: "famwebapp-abe61",
+  storageBucket: "famwebapp-abe61.appspot.com",
+  messagingSenderId: "60373682709",
+  appId: "1:60373682709:web:671df64fe9e798b1e9dc1c"
+};
+
+// Initialize Firebase
+const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+```
+
+Add in
+```
+import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
+```
+
+and
+```
+// Prepare Database
+const db = getFirestore();
+
+// Get Storage
+const storage = getStorage();
+
+export { app, db, storage };
+```
+
+---
+
+In Firebase, click on Authentication tab, click get started, Click "Google" as our log-in provider, click enable, save, go back into it, click Web SDK Configuration, copy `Web client ID` and `Web client secret` -- KEEP THESE SECRET
+
+In main dir, create `.env`
+```
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+NEXTAUTH_URL=http://localhost:3000
+```
+
+Enter secrets in there, no quotes
+
+Next doesn't make any of our env vars public unless we write NEXT_PUBLIC_envname. It's protected against being seen on the server.
+
+Restart our server due to changing env vars
+
+#### Implementing a custom sign in page
