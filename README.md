@@ -393,3 +393,19 @@ Go to `Story.js` and pull that session info
 
 In Header,
 Only show the icons if there's a session (they're logged in)
+
+Now, logging in and logging out works!!
+Just click the gear
+
+---
+
+Go back to `signin.js`
+Add Header
+Style button
+
+Now it's styled
+
+However, we need to return back to the home screen after sign in. right now it's just putting us back on the login screen. Go to `signin.js` and pass in an object after provider.id
+`onClick={() => SignIntoProvider(provider.id, { callbackUrl: '/'})}`
+
+It works!
