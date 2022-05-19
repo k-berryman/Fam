@@ -135,6 +135,8 @@ z-50 adds an additional "layer" to the page
 
 ## Activity Feed
 
+### Stories
+
 #### Starting the Feed
 In `components/` create `Activity.js` and make it a functional component
 In `pages/index.tsx`, `import Activity from "../components/Activity";` and `<Activity />`
@@ -175,3 +177,10 @@ In `tailwind.config.js`, update plugins
 
 `npm install tailwind-scrollbar-hide`
 Add to plug-ins
+
+### Posts
+Create Posts component
+Create Post component
+Pass down props from Posts to Post
+
+`flex-1` takes up as much room as it can

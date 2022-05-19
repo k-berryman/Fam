@@ -1,4 +1,5 @@
 import Stories from "./Stories";
+import Posts from "./Posts";
 
 function Activity() {
   return (
@@ -7,6 +8,7 @@ function Activity() {
       <Stories />
 
       {/* Posts & Comments */}
+      <Posts />
     </div>
   )
 }
