@@ -360,3 +360,36 @@ Click Request details to see redirect_uri that needs to be authorized on Google'
 Now logging in works!!!!
 
 #### Now we need to tap into the session we're logged into
+
+---
+
+Go to `_app.js` and wrap our entire app in a session provider
+Keep our session state throughout pages
+```
+import '../styles/globals.css'
+import type { AppProps } from 'next/app'
+import { SessionProvider } from 'next-auth/react'
+
+function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+  return (
+    <SessionProvider session={session}>
+      <Component {...pageProps} />
+    </SessionProvider>
+  )
+}
+
+export default MyApp
+```
+
+---
+
+Let's try to tap into our user's info
+Go to `Story.js` and pull that session info
+`import { useSession } from "next-auth/react"`
+`const { data: session } = useSession();`
+`src={session?.user?.image}`
+
+----
+
+In Header,
+Only show the icons if there's a session (they're logged in)

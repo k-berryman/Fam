@@ -11,8 +11,11 @@ import {
 import {
   HomeIcon
 } from "@heroicons/react/solid";
+import { useSession, signIn, signOut } from "next-auth/react"
 
 function Header() {
+  const { data: session } = useSession();
+
   return (
     <div className="shadow-sm border-b bg-white sticky top-0 z-50">
       <div className='flex justify-between mt-4 max-w-6xl mx-5 lg:mx-auto pb-4'>
@@ -37,17 +40,22 @@ function Header() {
         {/* Right */}
         <div className="flex items-center justify-end space-x-4">
           <HomeIcon className="navBtn"/>
-          <CalendarIcon className="navBtn"/>
-          <div className="relative navBtn">
-            <ChatAltIcon className="navBtn"/>
-            <div className="absolute -top-2 -right-3 text-xs w-5 h-5 bg-red-500 rounded-full flex items-center justify-center animate-pulse text-white">3</div>
-          </div>
-          <UserCircleIcon className="navBtn"/>
-          <PlusCircleIcon className="navBtn"/>
-          <CogIcon className="navBtn"/>
-
           <MenuIcon className="h-6 md:hidden cursor-pointer"/>
 
+          {session ? (
+            <>
+              <CalendarIcon className="navBtn"/>
+              <div className="relative navBtn">
+                <ChatAltIcon className="navBtn"/>
+                <div className="absolute -top-2 -right-3 text-xs w-5 h-5 bg-red-500 rounded-full flex items-center justify-center animate-pulse text-white">3</div>
+              </div>
+              <UserCircleIcon className="navBtn"/>
+              <PlusCircleIcon className="navBtn"/>
+              <CogIcon onClick={signOut} className="navBtn"/>
+            </>
+          ) : (
+            <button onClick={signIn}>Sign In</button>
+          )}
         </div>
 
       </div>
