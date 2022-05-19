@@ -2,7 +2,7 @@
 
 I'm starting off with learning how to make an [Instagram Clone from Sonny Sangha](https://www.youtube.com/watch?v=a6Xs2Ir40OI&t=257s&ab_channel=SonnySangha) using React, Next.js, Tailwind CSS, Firebase v9, NextAuth, Faker.js & Recoil.
 
----
+## Set Up
 
 #### Install Tailwind CSS with Next.js
 In `Desktop/fam`, `npx create-next-app -e with-tailwindcss fam` then `cd fam` & open it up in the code editor of your choice :-)
@@ -31,7 +31,7 @@ I've got a `package.json` file, so I'll run `npm run dev` & then I'll pull up `h
 **Set up `pages/index.tsx`**
 Delete unnecessary content & add an h1 to test it
 
----
+## Header
 
 #### Building the Header
 Make a folder called `components` (same level as pages)
@@ -132,6 +132,46 @@ Go to the outer-most div
 z-50 adds an additional "layer" to the page
 `<div className="shadow-sm border-b bg-white sticky top-0 z-50">`
 
----
 
-#### 
+## Activity Feed
+
+#### Starting the Feed
+In `components/` create `Activity.js` and make it a functional component
+In `pages/index.tsx`, `import Activity from "../components/Activity";` and `<Activity />`
+
+We'll create a Stories component
+
+He used CSS Grid, but we don't need to
+
+#### Implementing Faker.js
+Populate a list of fake users
+
+`npm install faker`
+
+In `Stories.js`, `import faker from "faker";`
+
+Add an `useEffect` to execute once when the component loads. Get the faker data in this. Save the data in state. Use `useState([])` so initial value is an empty arr
+
+We'll pass props from `Stories` to `Story`
+
+Faker photos is broken - there's a huge conspiracy lol - I'm going to use my own photo for all the broken photo links
+
+#### Finishing up Stories and Story Components
+`p-[1.5px]` In a Tailwind class allows for exact values
+`object-contain` keeps the correct ratio
+`truncate` to add ...
+Add hover effect
+
+#### Add scroll bar styling
+
+`npm install --save-dev tailwind-scrollbar`
+In `tailwind.config.js`, update plugins
+```
+  plugins: [
+    require("@tailwindcss/forms"),
+    require("tailwind-scrollbar"),
+  ],
+```
+
+`npm install tailwind-scrollbar-hide`
+Add to plug-ins
