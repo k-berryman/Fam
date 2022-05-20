@@ -687,3 +687,9 @@ Testing
 - Upload photo and comment, enter
 - Upload to Firestore collection, then uploads the image to firebase storage, then it comes back to the collection and updates the document that was just added so that the image references the firebase storage url
 - IT HAS THE FIREBASE STORAGE URL WOOOOHOOO
+
+### Now we need to pull this down into the frontend
+Go to `Posts.js`
+Instead of hard-coded posts, we're going to download from firebase in realtime baby
+
+Now we're doing the full process of uploading a picture via UI
