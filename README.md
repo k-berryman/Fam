@@ -703,3 +703,13 @@ Add comments state and a sendComments function
 
 `npm i react-moment` -- a library for parsing timestamps
 ___ Minutes ago
+
+### Add Likes
+
+Similar to comments -- a collection within the post
+In likes, IDs are user IDs - one like per user.
+Attach to heart icon
+
+Now create a useEffect dependent on hasLiked to check if they've already liked it. Allow for un-liking. Delete the like from firestore
+
+show number of likes
