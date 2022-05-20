@@ -610,3 +610,80 @@ Now we need a way to get the values from the caption
 `ref={captionRef}`
 
 We have all the info uploaded in the browser
+
+## Upload Post Function & Post to Firebase
+
+Still in `Modal.js`
+Create loading state and uploadPost function
+
+Introducing Firebase v9
+
+Go to Firebase, Firestore db, Create a db, start in test mode, enable
+Go to Storage, go to rules, `allow read, write: if true;`
+Back to Firestore,
+
+The `uploadPost` function needs to do the following
+```
+// 1 - Create a post and add to Firestore 'Posts' collection
+// 2 - Get post ID from the new post
+// 3 - Upload image to firebase storage with post ID
+// 4 - Get a download URL from firebase storage and update original post with image
+```
+
+**`addDoc` function from Firebase allows us to add a document to a collection. pass in the collection.
+
+```
+// Upload to Firebase
+  const uploadPost = async () => {
+    if(loading) return;
+
+    setLoading(true);
+
+    // 1 - Create a post and add to Firestore 'Posts' collection
+    // 2 - Get post ID from the new post
+    // 3 - Upload image to firebase storage with post ID
+    // 4 - Get a download URL from firebase storage and update original post with image
+
+    // access the posts collection and add a document to the db
+    const docRef = await addDoc(collection(db, 'posts'), {
+      // the data that we're going to add as we push
+      username: session.user.username,
+      caption: captionRef.current.value,
+      profileImg: session.user.image,
+      timestamp: serverTimestamp()
+    });
+
+    console.log("New doc added with ID ", docRef.id)
+
+
+    // Create a reference to firebase storage
+    const imageRef = ref(storage, `posts/${docRef.id}/image`);
+
+    // Upload file to firebase storage
+    await uploadString(imageRef, selectedFile, "data_url").then(async snapshot => {
+      // Get the download url so we can attach that image to the original post
+      const downloadURL = await getDownloadURL(imageRef);
+
+      // Now we need to update our original post with that URL
+      // Inside posts, which ID are we updating?
+      // Update Firestore entry with the new image data (aka the download URL)
+      await updateDoc(doc(db, 'posts', docRef.id), {
+        image: downloadURL
+      })
+    });
+
+    setOpen(false);
+    setLoading(false);
+    setSelectedFile(null);
+  }
+```
+
+Attach this function to the button
+
+--
+
+Testing
+
+- Upload photo and comment, enter
+- Upload to Firestore collection, then uploads the image to firebase storage, then it comes back to the collection and updates the document that was just added so that the image references the firebase storage url
+- IT HAS THE FIREBASE STORAGE URL WOOOOHOOO
