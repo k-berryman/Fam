@@ -12,15 +12,18 @@ import {
   HomeIcon
 } from "@heroicons/react/solid";
 import { useSession, signIn, signOut } from "next-auth/react"
+import { useRouter } from "next/router"
 
 function Header() {
   const { data: session } = useSession();
+  // console.log(session)
+  const router = useRouter();
 
   return (
     <div className="shadow-sm border-b bg-white sticky top-0 z-50">
-      <div className='flex justify-between mt-4 max-w-6xl mx-5 lg:mx-auto pb-4'>
+      <div className='flex justify-between max-w-6xl mx-5 lg:mx-auto py-4'>
         {/* Left - Display App Name */}
-        <div className='relative hidden lg:inline-grid h-30 w-32'>
+        <div onClick={() => router.push('/')} className='relative hidden lg:inline-grid h-30 w-32'>
           <Image
             src='https://links.papareact.com/ocw'
             layout='fill'
@@ -29,7 +32,7 @@ function Header() {
         </div>
 
         {/* Left - Display App Icon */}
-        <div className='relative lg:hidden h-10 w-10 flex-shrink-0 cursor-pointer'>
+        <div onClick={() => router.push('/')} className='relative lg:hidden h-10 w-10 flex-shrink-0 cursor-pointer'>
           <Image
             src='https://links.papareact.com/jjm'
             layout='fill'
@@ -39,7 +42,7 @@ function Header() {
 
         {/* Right */}
         <div className="flex items-center justify-end space-x-4">
-          <HomeIcon className="navBtn"/>
+          <HomeIcon onClick={() => router.push('/')} className="navBtn"/>
           <MenuIcon className="h-6 md:hidden cursor-pointer"/>
 
           {session ? (
@@ -52,6 +55,7 @@ function Header() {
               <UserCircleIcon className="navBtn"/>
               <PlusCircleIcon className="navBtn"/>
               <CogIcon onClick={signOut} className="navBtn"/>
+              <button className="text-blue-400 text-sm font-semibold" onClick={signOut}>Sign Out</button>
             </>
           ) : (
             <button onClick={signIn}>Sign In</button>

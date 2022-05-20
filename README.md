@@ -409,3 +409,66 @@ However, we need to return back to the home screen after sign in. right now it's
 `onClick={() => SignIntoProvider(provider.id, { callbackUrl: '/'})}`
 
 It works!
+
+---
+
+We only got back some info from Google -- we're going to upgrade the callback when we sign in to add to the user's object
+
+Go to `[...nextauth].js`
+Add to callbacks. Modify the session callback which creates the session after sign in. Now we can attach things to the session.
+```
+callbacks: {
+    async session({ session, token, user }) {
+      session.user.username = session.user.name
+        .split(' ')
+        .join('')
+        .toLocaleLowerCase();
+
+      // token.sub is Google's user ID
+      session.user.uid = token.sub;
+
+      return session;
+    }
+```
+
+Conditionally render based on log in status
+Go to `Activity.js`
+`import { useSession } from "next-auth/react";` and `const { data: session } = useSession();`
+```
+function Activity() {
+  const { data: session } = useSession();
+
+  return (
+    <div>
+      {session && (
+        <div className="grid grid-cols-1 md:max-w-3xl xl:max-w-6xl mx-auto">
+          {/* Stories */}
+          <Stories />
+
+          {/* Posts & Comments */}
+          <Posts />
+        </div>
+      )}
+
+      {!session && (
+        <div className="text-9xl">
+          <h1>LOG IN, PLEASE</h1>
+        </div>
+      )}
+    </div>
+  )
+}
+```
+
+----
+
+### Routing
+Go to Header
+Use built in Next.js router
+`import { useRouter } from "next/router"`
+`const router = useRouter();`
+
+Hook up buttons!
+
+`div onClick={() => router.push('/')`
+push new page onto the stack
