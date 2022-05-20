@@ -495,3 +495,64 @@ return (
     </SessionProvider>
   )
 ```
+
+### Modal
+We need to create an Atom (like a redux slice)
+Like a user atom to modularize
+
+In main dir, create folder `atoms`. In that, create `modalAtom.js`. Add in
+```
+import { atom } from "recoil";
+
+export const modalState = atom({
+  key: 'modalState',
+  default: false
+});
+
+```
+
+Go to Header
+```
+import { useRecoilState } from "recoil"
+import { modalState } from "../atoms/modalAtom"
+```
+and
+`const [open, setOpen] = useRecoilState(modalState);`
+
+All done -- we can access this value anywhere
+(If we wanted a read only version `const open = useRecoilValue(modalState)`
+
+Make plus icon trigger `onClick={() => setOpen(true)}`
+
+inside `index.js`, we'll have a modal component which taps into that global store
+
+Create Modal Component
+```
+import { useRecoilState } from "recoil"
+import { modalState } from "../atoms/modalAtom"
+
+function Modal() {
+  const [open, setOpen] = useRecoilState(modalState);
+
+  return (
+    <div>
+      <h1>IMMMM A MODALLLLLL</h1>
+
+      {open && (
+        <p>modal is open</p>
+      )}
+    </div>
+  )
+}
+
+export default Modal
+
+```
+
+
+### Headless UI
+
+Modal based on Tailwind UI Template
+
+^^ accessible components
+`npm i @headlessui/react`
