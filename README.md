@@ -472,3 +472,26 @@ Hook up buttons!
 
 `div onClick={() => router.push('/')`
 push new page onto the stack
+
+---
+
+### Recoil
+We need a global state/store
+Plus icon will trigger global store variable to true to show modal
+
+Redux vs. Recoil
+Recoil is light weight
+
+`npx install recoil`
+
+Initialize it by wrapping our whole app with it. Go to `_app.js`
+`import { RecoilRoot } from 'recoil'`
+```
+return (
+    <SessionProvider session={session}>
+      <RecoilRoot>
+        <Component {...pageProps} />
+      </RecoilRoot>
+    </SessionProvider>
+  )
+```
