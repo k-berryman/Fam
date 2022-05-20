@@ -693,3 +693,13 @@ Go to `Posts.js`
 Instead of hard-coded posts, we're going to download from firebase in realtime baby
 
 Now we're doing the full process of uploading a picture via UI
+
+---
+
+### Add Comments
+Go to Post.js
+
+Add comments state and a sendComments function
+
+`npm i react-moment` -- a library for parsing timestamps
+___ Minutes ago
