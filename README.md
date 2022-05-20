@@ -552,7 +552,61 @@ export default Modal
 
 ### Headless UI
 
-Modal based on Tailwind UI Template
+Modal based on Tailwind UI  Template
 
 ^^ accessible components
 `npm i @headlessui/react`
+
+---
+
+File Picker Reference is at
+```
+<input
+  // ref={filePickerRef}
+  type="file"
+  hidden
+  // onChange={addImageToPost}
+/>
+```
+In Modal.js
+
+Create `filePickerRef`
+`const filePickerRef = useRef(null);`
+
+
+`const [selectedFile, setSelectedFile] = useState(null);`
+
+
+`onClick={() => filePickerRef.current.click()}` when clicking the camera, execute a fake click on hidden input field
+
+`onChange={addImageToPost}` signals when a file is selected
+
+Now, we can select an image, but nothing happens
+
+--
+
+Add the following
+```
+  const addImageToPost = (e) => {
+    const reader = new FileReader();
+    if(e.target.files[0]) {
+      reader.readAsDataURL(e.target.files[0]);
+    }
+
+    reader.onload = (readerEvent) => {
+      setSelectedFile(readerEvent.target.result);
+    };
+  };
+```
+
+Now it uploads and displays it on the screen
+On click of the photo, set current selected photo to null
+
+---
+
+
+Now we need a way to get the values from the caption
+`const captionRef = useRef(null);`
+`ref={captionRef}`
+
+We have all the info uploaded in the browser
