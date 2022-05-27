@@ -50,7 +50,7 @@ function Header() {
 
           {session ? (
             <>
-              <CalendarIcon className="navBtn"/>
+              <CalendarIcon onClick={() => router.push('/calendar')} className="navBtn"/>
               <div className="relative navBtn">
                 <ChatAltIcon className="navBtn"/>
                 <div className="absolute -top-2 -right-3 text-xs w-5 h-5 bg-red-500 rounded-full flex items-center justify-center animate-pulse text-white">3</div>
