@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react"
 
-function ChatMessage({ senderId, text }) {
+function ChatMessage({ messageId, text }) {
 
   return (
     <div>
-      <h1>{ senderId }</h1>
+      <h1>{ messageId }</h1>
       <h1>{ text } </h1>
     </div>
   )
