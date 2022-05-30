@@ -1,11 +1,20 @@
 import { useState, useEffect } from "react"
 
-function ChatMessage({ messageId, text }) {
+function ChatMessage({ text, createdAt, username, userImage }) {
 
   return (
     <div>
-      <h1>{ messageId }</h1>
-      <h1>{ text } </h1>
+      <div className="flex my-5">
+        <img src={ userImage } className="rounded-full aspect-auto mr-2 scale-75"/>
+
+        <div className="flex-direction-row">
+          <h1>{ username }</h1>
+          <h1 className="bg-slate-200 w-40 break-words text-xl rounded">{ text } </h1>
+          <p></p>
+
+
+        </div>
+      </div>
     </div>
   )
 }

@@ -11,7 +11,7 @@ import ChatActivity from "../components/ChatActivity";
 const Home: NextPage = () => {
   return (
     <div>
-      <h1>testing</h1>
+      <Header />
       <ChatActivity />
     </div>
   )
