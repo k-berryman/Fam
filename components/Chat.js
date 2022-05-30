@@ -1,37 +1,31 @@
 import { db } from "../firebase"
 import ChatMessage from "./ChatMessage"
 import { useState, useEffect } from "react"
-import { addDoc, collection, doc, serverTimestamp, updateDoc } from "@firebase/firestore"
+import { addDoc, collection, onSnapshot, deleteDoc, query, orderBy, serverTimestamp, doc, setDoc } from "@firebase/firestore"
 
-function Chat(props) {
+function Chat() {
   const [messages, setMessages] = useState([]);
 
-  const uploadPost = async () => {
-    // access the posts collection and add a document to the db
-    const docRef = await addDoc(collection(db, 'messages'), {
-      // the data that we're going to add as we push
-      text: 'im in a code editor..',
-      createdAt: serverTimestamp()
+  // Attach a listener to the backend db
+  useEffect(() => {
+    // Firebase provides a snapshot listener
+    // Grab all posts in 'posts' collection
+    // Order it by the timestamp
+    console.log("im trtying")
+    return onSnapshot(query(collection(db, 'messages'), orderBy('createdAt', 'desc')), snapshot => {
+      setMessages(snapshot.docs);
     });
-  }
-
+  }, [db])
 
   return (
     <div>
-
-      <div>
-        {messages.map(message => (
-          <ChatMessage
-            messageId={message.id}
-            text={message.text}
-          />
-
-        ))}
-
-        <button onClick={uploadPost}>Refresh</button>
-      </div>
-
-
+      {messages.map(msg => (
+        <ChatMessage
+          key={msg.id}
+          id={msg.id}
+          text={msg.data().text}
+        />
+      ))}
     </div>
   )
 }
