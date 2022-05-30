@@ -5,9 +5,11 @@ function StyledCalendar() {
 
   return (
 
-    <div class="container ">
-        <h1 className="mt-16">hello</h1>
-        <Calendar className="scale-150"/>
+    <div class="container ml-96 mt-28 scale-150">
+        <Calendar
+          className=""
+          calendarType="US"
+        />
     </div>
 
 
