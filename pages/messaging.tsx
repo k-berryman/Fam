@@ -4,6 +4,8 @@ import Image from 'next/image'
 import Header from "../components/Header";
 import Activity from "../components/Activity";
 import Modal from "../components/Modal";
+import Chat from "../components/Chat";
+
 
 const Home: NextPage = () => {
   return (
@@ -15,6 +17,7 @@ const Home: NextPage = () => {
 
       <Header />
       <h1>Messaging</h1>
+      <Chat />
     </div>
   )
 }
