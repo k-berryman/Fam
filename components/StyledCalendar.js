@@ -94,7 +94,7 @@ function StyledCalendar() {
             calendarType="US"
             onChange={(value, event) => formatDay(value)}
           />
-          <div className="pl-24">
+          <div className="pl-8">
             <h1>Holidays (for {String(selected)})</h1>
             {items.map(item => (
               <li key={item.id}>
