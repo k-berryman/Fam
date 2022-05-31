@@ -17,7 +17,6 @@ const Home: NextPage = () => {
       <Header />
       <Modal />
 
-      <h1>My Family's Calendar</h1>
       <StyledCalendar />
     </div>
   )

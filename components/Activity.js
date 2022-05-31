@@ -8,10 +8,7 @@ function Activity() {
   return (
     <div>
       {session && (
-        <div className="grid grid-cols-1 md:max-w-3xl xl:max-w-6xl mx-auto">
-          {/* Stories */}
-          <Stories />
-
+        <div className="grid grid-cols-1 md:max-w-3xl xl:max-w-4xl mx-auto">
           {/* Posts & Comments */}
           <Posts />
         </div>

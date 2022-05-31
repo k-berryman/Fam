@@ -4,9 +4,7 @@ import {
   MenuIcon,
   CalendarIcon,
   ChatAltIcon,
-  UserCircleIcon,
   PlusCircleIcon,
-  CogIcon
 } from "@heroicons/react/outline";
 import {
   HomeIcon
@@ -51,13 +49,8 @@ function Header() {
           {session ? (
             <>
               <CalendarIcon onClick={() => router.push('/calendar')} className="navBtn"/>
-              <div className="relative navBtn">
-                <ChatAltIcon onClick={() => router.push('/messaging')} className="navBtn"/>
-                <div className="absolute -top-2 -right-3 text-xs w-5 h-5 bg-red-500 rounded-full flex items-center justify-center animate-pulse text-white">3</div>
-              </div>
-              <UserCircleIcon onClick={() => router.push('/profile')} className="navBtn"/>
+              <ChatAltIcon onClick={() => router.push('/messaging')} className="navBtn"/>
               <PlusCircleIcon onClick={() => setOpen(true)} className="navBtn"/>
-              <CogIcon onClick={signOut} className="navBtn"/>
               <button className="text-blue-400 text-sm font-semibold" onClick={signOut}>Sign Out</button>
             </>
           ) : (
