@@ -15,7 +15,7 @@ function Chat() {
   useEffect(() => {
     // Firebase provides a snapshot listener
     // Grab all posts in 'messages' collection
-    return onSnapshot(query(collection(db, 'messages'), orderBy('createdAt', 'desc')), snapshot => {
+    return onSnapshot(query(collection(db, 'messages'), orderBy('createdAt')), snapshot => {
       setMessages(snapshot.docs);
     });
   }, [db])
@@ -48,7 +48,7 @@ function Chat() {
 
   return (
     <div>
-      <div className="h-96 overflow-y-scroll	">
+      <div className="h-96 overflow-y-scroll -mt-4">
         {messages.map(msg => (
           <ChatMessage
             key={msg.id}
