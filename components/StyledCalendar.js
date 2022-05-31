@@ -40,6 +40,26 @@ function StyledCalendar() {
       )
   }, [])
 
+  const getHolidays = (year, month, day) => {
+    let url = `https://holidays.abstractapi.com/v1/?api_key=6390db73c2bc464fbc67e5d6efe6fde4&country=US&year=${year}&month=${month}&day=${day}`
+
+    fetch(url)
+      .then(res => res.json())
+      .then(
+        (result) => {
+          setIsLoaded(true);
+          setItems(result);
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          setIsLoaded(true);
+          setError(error);
+        }
+      )
+  }
+
 
   const formatDay = (date) => {
     const locale = 'fr-CA';
@@ -51,7 +71,15 @@ function StyledCalendar() {
                 day: "2-digit"
           }).format(date)
 
+    let newYear = newDate[0] + newDate[1] + newDate[2] + newDate[3]
+    let newMonth = newDate[5] + newDate[6]
+    let newDay = newDate[8] + newDate[9]
+
+    getHolidays(newYear, newMonth, newDay)
+
     setSelected(newDate)
+
+
   }
 
   if (error) {
@@ -66,11 +94,8 @@ function StyledCalendar() {
             calendarType="US"
             onChange={(value, event) => formatDay(value)}
           />
-          <h1 className="pl-24">{thisMonth} Birthdays</h1>
-          <h1>{String(selected)}</h1>
-
           <div className="pl-24">
-            <h1>Today's Holidays</h1>
+            <h1>Holidays (for {String(selected)})</h1>
             {items.map(item => (
               <li key={item.id}>
                 {item.name}
