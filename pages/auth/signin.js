@@ -6,13 +6,9 @@ function signIn({ providers }) {
     <>
     <Header />
 
-    <div className="flex flex-col items-center justify-center min-h-screen py-2 mt-56 px-14 text-center">
-
-      <img src="https://links.papareact.com/ocw" className="w-80" alt="" />
-
-      <p>Educational Purposes</p>
-
-      <div className="mt-40">
+    <div className="flex flex-col items-center justify-center min-h-screen py-2 px-14 text-center  bg-gradient-to-r from-orange-400 via-red-500 to-pink-500">
+      <div className="">
+        <h1>Please Sign In</h1>
         {Object.values(providers).map((provider) => (
           <div key={provider.name}>
             <button

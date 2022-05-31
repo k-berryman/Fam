@@ -1,9 +1,11 @@
 import Stories from "./Stories";
 import Posts from "./Posts";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router"
 
 function Activity() {
   const { data: session } = useSession();
+  const router = useRouter();
 
   return (
     <div>
@@ -15,8 +17,10 @@ function Activity() {
       )}
 
       {!session && (
-        <div className="text-9xl">
-          <h1>LOG IN, PLEASE</h1>
+        <div className="flex flex-col items-center justify-center min-h-screen py-2 px-14 text-center  bg-gradient-to-r from-orange-400 via-red-500 to-pink-500">
+        <div>
+          Please click sign in :)
+        </div>
         </div>
       )}
     </div>
