@@ -5,6 +5,7 @@ import {
   CalendarIcon,
   ChatAltIcon,
   PlusCircleIcon,
+  UserIcon
 } from "@heroicons/react/outline";
 import {
   HomeIcon
@@ -51,6 +52,7 @@ function Header() {
               <CalendarIcon onClick={() => router.push('/calendar')} className="navBtn"/>
               <ChatAltIcon onClick={() => router.push('/messaging')} className="navBtn"/>
               <PlusCircleIcon onClick={() => setOpen(true)} className="navBtn"/>
+              <UserIcon onClick={() => router.push('/profiles')} className="navBtn"/>
               <button className="text-blue-400 text-sm font-semibold" onClick={signOut}>Sign Out</button>
             </>
           ) : (

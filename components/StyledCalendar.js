@@ -88,7 +88,7 @@ function StyledCalendar() {
     return <div>Loading...</div>;
   } else {
     return (
-      <div class="container ml-96 mt-28 scale-150 flex">
+      <div class="container pl-96 mt-28 scale-150 flex">
           <Calendar
             className=""
             calendarType="US"
