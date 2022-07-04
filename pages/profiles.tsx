@@ -2,9 +2,8 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Header from "../components/Header";
-import Activity from "../components/Activity";
+import Profile from "../components/Profile";
 import Modal from "../components/Modal";
-import StyledCalendar from '../components/StyledCalendar';
 
 const Home: NextPage = () => {
   return (
@@ -17,7 +16,7 @@ const Home: NextPage = () => {
       <Header />
       <Modal />
 
-      <h1>testtt</h1>
+      <Profile />
     </div>
   )
 }
