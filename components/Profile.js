@@ -1,9 +1,20 @@
-import { useState, useEffect } from "react"
-import { collection, onSnapshot, query, orderBy } from "@firebase/firestore"
-import { db } from "../firebase"
+import { useState, useEffect } from "react";
+import { collection, onSnapshot, query, orderBy } from "@firebase/firestore";
+import { db } from "../firebase";
 import Image from "next/image";
 
 function Profile() {
+  const [posts, setPosts] = useState([]);
+
+  // Attach a listener to the backend db
+  useEffect(() => {
+    // Firebase provides a snapshot listener
+    // Grab all posts in 'posts' collection
+    // Order it by the timestamp
+    return onSnapshot(query(collection(db, 'posts'), orderBy('timestamp', 'desc')), snapshot => {
+      setPosts(snapshot.docs);
+    });
+  }, [db])
 
   // name, birthday, status
   return (
@@ -53,7 +64,7 @@ function Profile() {
 
       <button
         type="button"
-        className="w-[250px] ml-11 mt-4 inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-500 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 sm:text-sm"
+        className="w-[470px] ml-11 mt-4 inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-500 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 sm:text-sm"
       >
       {"Update Account"}
       </button>

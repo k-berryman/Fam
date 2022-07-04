@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Header from "../components/Header";
 import Profile from "../components/Profile";
+import ProfileNoInput from "../components/ProfileNoInput";
 import Modal from "../components/Modal";
 
 const Home: NextPage = () => {
@@ -17,6 +18,9 @@ const Home: NextPage = () => {
       <Modal />
 
       <Profile />
+      <ProfileNoInput />
+
+
     </div>
   )
 }
