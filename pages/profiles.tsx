@@ -2,8 +2,9 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Header from "../components/Header";
-import Profile from "../components/Profile";
-import ProfileNoInput from "../components/ProfileNoInput";
+//import Profile from "../components/Profile";
+//import ProfileNoInput from "../components/ProfileNoInput";
+import AllProfiles from "../components/AllProfiles";
 import Modal from "../components/Modal";
 
 const Home: NextPage = () => {
@@ -17,8 +18,7 @@ const Home: NextPage = () => {
       <Header />
       <Modal />
 
-      <Profile />
-      <ProfileNoInput />
+      <AllProfiles />
 
 
     </div>
