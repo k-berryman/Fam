@@ -102,12 +102,6 @@ function StyledCalendar() {
                 {item.name}
               </li>
             ))}
-            <br/>
-            <br/>
-            <h1 className="text-lg">Upcoming Family Events</h1>
-            <br/>
-
-            <Form />
           </div>
       </div>
     )

@@ -2,7 +2,7 @@ function Form() {
 
   return (
     <div>
-      <div className="w-96 h-40 rounded-lg">
+      <div className="w-96 h-40 rounded-lg text-2xl">
         <p className="mt-5 text-lg">Add Event </p>
 
         <div className="flex">

@@ -3,7 +3,7 @@ import { collection, onSnapshot, query, orderBy } from "@firebase/firestore";
 import { db } from "../firebase";
 import Image from "next/image";
 
-function Profile() {
+function Profile({ userImage, username }) {
   const [posts, setPosts] = useState([]);
 
   // Attach a listener to the backend db
@@ -20,31 +20,28 @@ function Profile() {
   return (
     <div>
       <div className="bg-slate-200 mt-6 ml-11 mr-11 w-75% h-40 rounded-lg flex">
-        <div className="pt-6 pl-3 w-40 h-40 rounded-lg">
+        <div className="pt-6 pl-6 w-40 h-40 rounded-lg">
           <Image
-            src='https://www.designfreelogoonline.com/wp-content/uploads/2019/02/00580-Family-02.png'
+            src={userImage}
             width='110px'
             height='110px'
           />
         </div>
 
         <div className="ml-4 mr-4 pt-4 pl-3 w-96 h-40 rounded-lg">
-          <p className="mt-5 text-lg">Email: </p>
-
-          <div class="mt-1 mr-4 relative rounded-md shadow-sm">
-            <input type="text" name="price" id="price" class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="sample@email.com" />
-          </div>
+          <p className="font-bold mt-5 text-lg">Username:</p>
+          <p className="mt-2 text-lg">{username}</p>
         </div>
 
-        <div className="mr-4 pt-4 pl-3 w-96 h-40 rounded-lg">
+        <div className="font-bold mr-4 pt-4 pl-3 w-96 h-40 rounded-lg">
           <p className="mt-5 text-lg">Name: </p>
 
-          <div class="mt-1 mr-4 relative rounded-md shadow-sm">
+          <div class="font-bold mt-1 mr-4 relative rounded-md shadow-sm">
             <input type="text" name="price" id="price" class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="Jane Doe" />
           </div>
         </div>
 
-        <div className="mr-4 pt-4 pl-3 w-96 h-40 rounded-lg">
+        <div className="font-bold mr-4 pt-4 pl-3 w-96 h-40 rounded-lg">
           <p className="mt-5 text-lg">Birthday: </p>
 
           <div class="mt-1 mr-4 relative rounded-md shadow-sm">

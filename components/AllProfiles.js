@@ -10,8 +10,8 @@ function AllProfiles() {
   return (
     <div>
       {session && (
-        <div className="grid grid-cols-1 md:max-w-3xl xl:max-w-6xl mx-auto">  
-          <Profile />
+        <div className="">
+          <Profile userImage={session.user.image} username={session.user.username}/>
           <ProfileNoInput />
         </div>
       )}

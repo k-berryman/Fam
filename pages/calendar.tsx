@@ -5,6 +5,8 @@ import Header from "../components/Header";
 import Activity from "../components/Activity";
 import Modal from "../components/Modal";
 import StyledCalendar from '../components/StyledCalendar';
+import CalendarPage from '../components/CalendarPage';
+
 
 const Home: NextPage = () => {
   return (
@@ -17,7 +19,7 @@ const Home: NextPage = () => {
       <Header />
       <Modal />
 
-      <StyledCalendar />
+      <CalendarPage />
     </div>
   )
 }
