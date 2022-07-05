@@ -5,7 +5,6 @@ import ProfileNoInput from "./ProfileNoInput";
 function AllProfiles() {
   const { data: session } = useSession();
 
-  // console.log(session)
 
   return (
     <div>
@@ -18,7 +17,7 @@ function AllProfiles() {
 
       {!session && (
         <div className="text-9xl">
-          <h1>LOG IN, PLEASE</h1>
+          <h1>Please Sign In</h1>
         </div>
       )}
 

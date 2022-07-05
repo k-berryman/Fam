@@ -14,7 +14,7 @@ function ChatActivity() {
 
       {!session && (
         <div className="text-9xl">
-          <h1>LOG IN, PLEASE</h1>
+          <h1>Please Sign In</h1>
         </div>
       )}
     </div>

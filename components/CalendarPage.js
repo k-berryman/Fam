@@ -24,20 +24,33 @@ function CalendarPage() {
 
   return (
     <div>
-      <StyledCalendar />
-      <div className='pl-[640px] -mt-64'>
-        <h1 className="text-2xl">Upcoming Family Events</h1>
-        <div className="">
-          <ul>
-          {events.map(event => (
-            <li className="text-xl">- {event.data().name} at {event.data().location} on {event.data().date}</li>
-          ))}
-          </ul>
+
+
+      {!session && (
+        <div className="text-9xl">
+          <h1>Please Sign In</h1>
         </div>
+      )}
 
-        <Form />
+      {session && (
+        <div>
+          <StyledCalendar />
+          <div className='pl-[640px] -mt-64'>
+            <h1 className="text-2xl">Upcoming Family Events</h1>
+            <div className="">
+              <ul>
+              {events.map(event => (
+                <li className="text-xl">- {event.data().name} at {event.data().location} on {event.data().date}</li>
+              ))}
+              </ul>
+            </div>
 
-      </div>
+            <Form />
+          </div>
+        </div>
+      )}
+
+
     </div>
   )
 }
