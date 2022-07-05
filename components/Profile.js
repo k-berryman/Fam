@@ -12,6 +12,7 @@ function Profile({ userImage, username }) {
   const [profile, setProfile] = useState([]);
   const [users, setUsers] = useState([]);
   const { data: session } = useSession();
+
   const [user, setUser] = useState({});
 
 
@@ -34,6 +35,7 @@ function Profile({ userImage, username }) {
       statusRef.current.value = ''
 
       alert('Updated Account')
+      getCurrentUser();
   }
 
   // Retrieve profile data from firebase
@@ -43,8 +45,20 @@ function Profile({ userImage, username }) {
     return onSnapshot(query(collection(db, 'users'), orderBy('createdAt')), snapshot => {
       //console.log(snapshot.docs.data().username)
       setUsers(snapshot.docs);
+      getCurrentUser();
     });
-  }, [db])
+  }, [db]);
+
+
+  const getCurrentUser = () => {
+    users.map(function idk (user) {
+      if(user.data().username === session.user.username) {
+        setUser(user.data())
+        return;
+      }
+    })
+  }
+
 
   // name, birthday, status
   return (
@@ -65,12 +79,7 @@ function Profile({ userImage, username }) {
 
         <div className="mr-4 pt-4 pl-3 w-96 h-40 rounded-lg">
           <p className="font-bold mt-5 text-lg">Name: </p>
-          <div>
-          {users.map(user => (
-            <p>{user.data().name}</p>
-
-          ))}
-          </div>
+          <p>{user.name}</p>
 
           <div class="font-bold mt-1 mr-4 relative rounded-md shadow-sm">
             <input
@@ -84,13 +93,8 @@ function Profile({ userImage, username }) {
 
         <div className="mr-4 pt-4 pl-3 w-96 h-40 rounded-lg">
           <p className="font-bold mt-5 text-lg">Birthday: </p>
+          <p>{user.birthday}</p>
 
-          <div>
-          {users.map(user => (
-            <p>{user.data().birthday}</p>
-
-          ))}
-          </div>
 
           <div class="mt-1 mr-4 relative rounded-md shadow-sm">
             <input
@@ -104,14 +108,7 @@ function Profile({ userImage, username }) {
 
         <div className="pt-4 pl-3 w-96 h-40 rounded-lg">
           <p className="font-bold mt-5 text-lg">Status: </p>
-
-          <div>
-          {users.map(user => (
-            <p>{user.data().status}</p>
-
-          ))}
-          </div>
-
+          <p>{user.status}</p>
 
           <div class="mt-1 mr-4 relative rounded-md shadow-sm">
             <input
@@ -124,14 +121,23 @@ function Profile({ userImage, username }) {
         </div>
       </div>
 
+      <div className='flex'>
+        <button
+          type="button"
+          onClick={getCurrentUser}
+          className="w-[215px] ml-11 mt-4 inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-500 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 sm:text-sm"
+        >
+        {"Refresh"}
+        </button>
 
-      <button
-        type="button"
-        onClick={updateProfile}
-        className="w-[470px] ml-11 mt-4 inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-500 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 sm:text-sm"
-      >
-      {"Update Account"}
-      </button>
+        <button
+          type="button"
+          onClick={updateProfile}
+          className="w-[215px] ml-5 mt-4 inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-500 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 sm:text-sm"
+        >
+        {"Update Account"}
+        </button>
+      </div>
 
 
     </div>
