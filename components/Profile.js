@@ -1,20 +1,27 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { collection, onSnapshot, query, orderBy } from "@firebase/firestore";
 import { db } from "../firebase";
 import Image from "next/image";
+import { ref } from "@firebase/storage"
 
 function Profile({ userImage, username }) {
-  const [posts, setPosts] = useState([]);
+  const nameRef = useRef(null);
+  const birthdayRef = useRef(null);
+  const statusRef = useRef(null);
 
-  // Attach a listener to the backend db
-  useEffect(() => {
-    // Firebase provides a snapshot listener
-    // Grab all posts in 'posts' collection
-    // Order it by the timestamp
-    return onSnapshot(query(collection(db, 'posts'), orderBy('timestamp', 'desc')), snapshot => {
-      setPosts(snapshot.docs);
-    });
-  }, [db])
+  // Send message to Firebase
+  const updateProfile = async (e) => {
+      // Prevent page from refreshing when trying to submit a message
+      e.preventDefault();
+
+      /*// Go into db, messages collection, post with id, comments field
+      await addDoc(collection(db, 'messages'), {
+        text: messageRef.current.value,
+        createdAt: serverTimestamp(),
+        username: session.user.username,
+        userImage: session.user.image,
+      })*/
+  }
 
   // name, birthday, status
   return (
@@ -37,7 +44,12 @@ function Profile({ userImage, username }) {
           <p className="mt-5 text-lg">Name: </p>
 
           <div class="font-bold mt-1 mr-4 relative rounded-md shadow-sm">
-            <input type="text" name="price" id="price" class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="Jane Doe" />
+            <input
+              type="text"
+              ref={nameRef}
+              class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-12 sm:text-sm border-gray-300 rounded-md"
+              placeholder="Change name here"
+            />
           </div>
         </div>
 
@@ -45,7 +57,12 @@ function Profile({ userImage, username }) {
           <p className="mt-5 text-lg">Birthday: </p>
 
           <div class="mt-1 mr-4 relative rounded-md shadow-sm">
-            <input type="text" name="price" id="price" class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="July 4th, 1922" />
+            <input
+              type="text"
+              ref={birthdayRef}
+              class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-12 sm:text-sm border-gray-300 rounded-md"
+              placeholder="Change birthday here"
+            />
           </div>
         </div>
 
@@ -53,7 +70,12 @@ function Profile({ userImage, username }) {
           <p className="mt-5 text-lg">Status: </p>
 
           <div class="mt-1 mr-4 relative rounded-md shadow-sm">
-            <input type="text" name="price" id="price" class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="Finishing a programming bootcamp" />
+            <input
+              type="text"
+              ref={statusRef}
+              class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-12 sm:text-sm border-gray-300 rounded-md"
+              placeholder="Change status here"
+            />
           </div>
         </div>
       </div>
@@ -61,6 +83,7 @@ function Profile({ userImage, username }) {
 
       <button
         type="button"
+        onClick={updateProfile}
         className="w-[470px] ml-11 mt-4 inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-500 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 sm:text-sm"
       >
       {"Update Account"}
