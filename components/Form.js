@@ -9,6 +9,9 @@ function Form() {
 
   const [events, setEvents] = useState([]);
   const { data: session } = useSession();
+  const nameRef = useRef(null);
+  const locationRef = useRef(null);
+  const dateRef = useRef(null);
 
   // Send message to Firebase
   const uploadEvent = async (e) => {
@@ -18,9 +21,9 @@ function Form() {
       // Go into db, events collection, post with id, comments field
       await addDoc(collection(db, 'events'), {
         createdAt: serverTimestamp(),
-        name: "Dad's Birthday",
-        location: "Cedar Point",
-        date: "July 30th, 2022"
+        name: nameRef.current.value,
+        location: locationRef.current.value,
+        date: dateRef.current.value,
       })
   }
 
@@ -32,21 +35,36 @@ function Form() {
         <div className="flex">
           <p className="text-sm mt-3">Event Name: </p>
           <div class="ml-3 mt-1 mr-4 relative rounded-md shadow-sm">
-            <input type="text" class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="Kaitlin's Birthday" />
+            <input
+              type="text"
+              class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-12 sm:text-sm border-gray-300 rounded-md"
+              placeholder="Kaitlin's Birthday"
+              ref={nameRef}
+            />
           </div>
         </div>
 
         <div className="flex">
           <p className="text-sm mt-3">Location: </p>
           <div class="ml-3 mt-1 mr-4 relative rounded-md shadow-sm">
-            <input type="text" class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="Orlando, FL" />
+            <input
+              type="text"
+              class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-12 sm:text-sm border-gray-300 rounded-md"
+              placeholder="Orlando, FL"
+              ref={locationRef}
+            />
           </div>
         </div>
 
         <div className="flex">
           <p className="text-sm mt-3">Date: </p>
           <div class="ml-3 mt-1 mr-4 relative rounded-md shadow-sm">
-            <input type="text" class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="July 9th, 2022" />
+            <input
+              type="text"
+              class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-12 sm:text-sm border-gray-300 rounded-md"
+              placeholder="July 9th, 2022"
+              ref={dateRef}
+            />
           </div>
         </div>
 
