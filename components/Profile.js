@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from "react";
-import { collection, onSnapshot, query, orderBy } from "@firebase/firestore";
 import { db } from "../firebase";
 import Image from "next/image";
 import { ref } from "@firebase/storage"
+import { addDoc, collection, onSnapshot, deleteDoc, query, orderBy, serverTimestamp, doc, setDoc } from "@firebase/firestore"
+
 
 function Profile({ userImage, username }) {
   const nameRef = useRef(null);
@@ -14,13 +15,17 @@ function Profile({ userImage, username }) {
       // Prevent page from refreshing when trying to submit a message
       e.preventDefault();
 
-      /*// Go into db, messages collection, post with id, comments field
-      await addDoc(collection(db, 'messages'), {
-        text: messageRef.current.value,
+      // Go into db, messages collection, post with id, comments field
+      await addDoc(collection(db, 'users'), {
         createdAt: serverTimestamp(),
-        username: session.user.username,
-        userImage: session.user.image,
-      })*/
+        name: nameRef.current.value,
+        birthday: birthdayRef.current.value,
+        status: statusRef.current.value
+      })
+
+      nameRef.current.value = ''
+      birthdayRef.current.value = ''
+      statusRef.current.value = ''
   }
 
   // name, birthday, status
@@ -67,7 +72,7 @@ function Profile({ userImage, username }) {
         </div>
 
         <div className="pt-4 pl-3 w-96 h-40 rounded-lg">
-          <p className="mt-5 text-lg">Status: </p>
+          <p className="font-bold mt-5 text-lg">Status: </p>
 
           <div class="mt-1 mr-4 relative rounded-md shadow-sm">
             <input
