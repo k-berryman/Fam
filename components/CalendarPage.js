@@ -11,31 +11,16 @@ function CalendarPage() {
 
   const [events, setEvents] = useState([]);
   const { data: session } = useSession();
-  const messageRef = useRef(null);
 
   // Retrieve events from firebase
   useEffect(() => {
     // Firebase provides a snapshot listener
     // Grab all posts in 'events' collection
-    return onSnapshot(query(collection(db, 'events'), orderBy('createdAt')), snapshot => {
+    return onSnapshot(query(collection(db, 'events')), snapshot => {
       setEvents(snapshot.docs);
     });
   }, [db])
 
-
-  // Send message to Firebase
-  const uploadMessage = async (e) => {
-      // Prevent page from refreshing when trying to submit a message
-      e.preventDefault();
-
-      // Go into db, events collection, post with id, comments field
-      await addDoc(collection(db, 'events'), {
-        text: messageRef.current.value,
-        createdAt: serverTimestamp(),
-        username: session.user.username,
-        userImage: session.user.image,
-      })
-  }
 
   return (
     <div>
@@ -45,12 +30,13 @@ function CalendarPage() {
         <div className="">
           <ul>
           {events.map(event => (
-            <li>- {event.data().name} at {event.data().location} on {event.data().date}</li>
+            <li className="text-xl">- {event.data().name} at {event.data().location} on {event.data().date}</li>
           ))}
           </ul>
         </div>
 
         <Form />
+
       </div>
     </div>
   )
