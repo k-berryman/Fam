@@ -33,6 +33,8 @@ function Chat() {
         username: session.user.username,
         userImage: session.user.image,
       })
+
+      messageRef.current.value = ''
   }
 
   return (
