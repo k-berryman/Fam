@@ -3,12 +3,17 @@ import { db } from "../firebase";
 import Image from "next/image";
 import { ref } from "@firebase/storage"
 import { addDoc, collection, onSnapshot, deleteDoc, query, orderBy, serverTimestamp, doc, setDoc } from "@firebase/firestore"
-
+import { useSession } from "next-auth/react"
 
 function Profile({ userImage, username }) {
   const nameRef = useRef(null);
   const birthdayRef = useRef(null);
   const statusRef = useRef(null);
+  const [profile, setProfile] = useState([]);
+  const [users, setUsers] = useState([]);
+  const { data: session } = useSession();
+  const [user, setUser] = useState({});
+
 
   // Send message to Firebase
   const updateProfile = async (e) => {
@@ -18,6 +23,7 @@ function Profile({ userImage, username }) {
       // Go into db, messages collection, post with id, comments field
       await addDoc(collection(db, 'users'), {
         createdAt: serverTimestamp(),
+        username: session.user.username,
         name: nameRef.current.value,
         birthday: birthdayRef.current.value,
         status: statusRef.current.value
@@ -26,7 +32,19 @@ function Profile({ userImage, username }) {
       nameRef.current.value = ''
       birthdayRef.current.value = ''
       statusRef.current.value = ''
+
+      alert('Updated Account')
   }
+
+  // Retrieve profile data from firebase
+  useEffect(() => {
+    // Firebase provides a snapshot listener
+    // Grab all posts in 'users' collection
+    return onSnapshot(query(collection(db, 'users'), orderBy('createdAt')), snapshot => {
+      //console.log(snapshot.docs.data().username)
+      setUsers(snapshot.docs);
+    });
+  }, [db])
 
   // name, birthday, status
   return (
@@ -45,8 +63,14 @@ function Profile({ userImage, username }) {
           <p className="mt-2 text-lg">{username}</p>
         </div>
 
-        <div className="font-bold mr-4 pt-4 pl-3 w-96 h-40 rounded-lg">
-          <p className="mt-5 text-lg">Name: </p>
+        <div className="mr-4 pt-4 pl-3 w-96 h-40 rounded-lg">
+          <p className="font-bold mt-5 text-lg">Name: </p>
+          <div>
+          {users.map(user => (
+            <p>{user.data().name}</p>
+
+          ))}
+          </div>
 
           <div class="font-bold mt-1 mr-4 relative rounded-md shadow-sm">
             <input
@@ -58,8 +82,15 @@ function Profile({ userImage, username }) {
           </div>
         </div>
 
-        <div className="font-bold mr-4 pt-4 pl-3 w-96 h-40 rounded-lg">
-          <p className="mt-5 text-lg">Birthday: </p>
+        <div className="mr-4 pt-4 pl-3 w-96 h-40 rounded-lg">
+          <p className="font-bold mt-5 text-lg">Birthday: </p>
+
+          <div>
+          {users.map(user => (
+            <p>{user.data().birthday}</p>
+
+          ))}
+          </div>
 
           <div class="mt-1 mr-4 relative rounded-md shadow-sm">
             <input
@@ -73,6 +104,14 @@ function Profile({ userImage, username }) {
 
         <div className="pt-4 pl-3 w-96 h-40 rounded-lg">
           <p className="font-bold mt-5 text-lg">Status: </p>
+
+          <div>
+          {users.map(user => (
+            <p>{user.data().status}</p>
+
+          ))}
+          </div>
+
 
           <div class="mt-1 mr-4 relative rounded-md shadow-sm">
             <input

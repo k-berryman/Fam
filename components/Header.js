@@ -27,7 +27,7 @@ function Header() {
         {/* Left - Display App Name */}
         <div onClick={() => router.push('/')} className='relative hidden lg:inline-grid h-30 w-32'>
           <Image
-            src='https://www.designfreelogoonline.com/wp-content/uploads/2019/02/00580-Family-02.png'
+            src='https://firebasestorage.googleapis.com/v0/b/famwebapp-abe61.appspot.com/o/famName.png?alt=media&token=17ce8dc1-8c3f-4d9c-86a2-052000fc97da'
             layout='fill'
             objectFit='contain'
           />
@@ -36,7 +36,7 @@ function Header() {
         {/* Left - Display App Icon */}
         <div onClick={() => router.push('/')} className='relative lg:hidden h-10 w-10 flex-shrink-0 cursor-pointer'>
           <Image
-            src='https://firebasestorage.googleapis.com/v0/b/famwebapp-abe61.appspot.com/o/heart.png?alt=media&token=57377a3b-46ac-4215-971c-960ec6ff2cd6'
+            src='https://www.designfreelogoonline.com/wp-content/uploads/2019/02/00580-Family-02.png'
             layout='fill'
             objectFit='contain'
           />

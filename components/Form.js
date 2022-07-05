@@ -3,8 +3,6 @@ import { useState, useEffect, useRef } from "react"
 import { addDoc, collection, onSnapshot, deleteDoc, query, orderBy, serverTimestamp, doc, setDoc } from "@firebase/firestore"
 import { useSession } from "next-auth/react"
 import { ref } from "@firebase/storage"
-import { addDoc, collection, onSnapshot, deleteDoc, query, orderBy, serverTimestamp, doc, setDoc } from "@firebase/firestore"
-
 
 function Form() {
 
