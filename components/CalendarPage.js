@@ -11,6 +11,7 @@ function CalendarPage() {
 
   const [events, setEvents] = useState([]);
   const { data: session } = useSession();
+  const [loaded, setLoaded] = useState(false);
 
   // Retrieve events from firebase
   useEffect(() => {
@@ -35,11 +36,7 @@ function CalendarPage() {
     return onSnapshot(query(collection(db, 'users'), orderBy('createdAt')), snapshot => {
       setUsers(snapshot.docs);
     });
-
-    getCurrentUser();
-    checkHasFam();
-    router.push('/')
-  }, [db, user, famCode]);
+  }, [db]);
 
 
   const getCurrentUser = async () => {
@@ -53,6 +50,9 @@ function CalendarPage() {
   }
 
   const checkHasFam = async () => {
+    if(!session) {
+      return;
+    }
     await getCurrentUser();
 
     if(!user.famCode) {
@@ -60,28 +60,46 @@ function CalendarPage() {
     }
   }
 
+  if(loaded === false) {
+    setTimeout(() => {
+      try {
+        checkHasFam();
+        setLoaded(true);
+      } catch(e) {
+        console.log(e);
+      }
+    }, 500)
+  }
 
 
   return (
     <div>
       {
         session ? (
-        user.famCode ? (
-          <div>
-            <StyledCalendar />
-            <div className='pl-[640px] -mt-64'>
-              <h1 className="text-2xl">Upcoming Family Events</h1>
-              <div className="">
-                <ul>
-                {events.map(event => (
-                  <li className="text-xl">- {event.data().name} at {event.data().location} on {event.data().date}</li>
-                ))}
-                </ul>
+          loaded ? (
+
+            user.famCode ? (
+              <div>
+                <StyledCalendar />
+                <div className='pl-[640px] -mt-64'>
+                  <h1 className="text-2xl">Upcoming Family Events</h1>
+                  <div className="">
+                    <ul>
+                    {events.map(event => (
+                      <li className="text-xl">- {event.data().name} at {event.data().location} on {event.data().date}</li>
+                    ))}
+                    </ul>
+                  </div>
+
+                  <Form />
+                </div>
               </div>
 
-              <Form />
+          ) : (
+            <div className="flex flex-col items-center justify-center min-h-screen py-2 px-14 text-center">
+              Loading...
             </div>
-          </div>
+          )
         ) : (
           <div>
             <h1>Logged In, but has no Fam</h1>

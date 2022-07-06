@@ -12,6 +12,7 @@ function AllProfiles() {
   const [users, setUsers] = useState([]);
   const [user, setUser] = useState({});
   const [famCode, setFamCode] = useState('');
+  const [loaded, setLoaded] = useState(false);
 
   // Retrieve profile data from firebase
   useEffect(() => {
@@ -21,11 +22,7 @@ function AllProfiles() {
     return onSnapshot(query(collection(db, 'users'), orderBy('createdAt')), snapshot => {
       setUsers(snapshot.docs);
     });
-
-    getCurrentUser();
-    checkHasFam();
-    router.push('/')
-  }, [db, user, famCode]);
+  }, [db]);
 
 
   const getCurrentUser = async () => {
@@ -39,6 +36,9 @@ function AllProfiles() {
   }
 
   const checkHasFam = async () => {
+    if(!session) {
+      return;
+    }
     await getCurrentUser();
 
     if(!user.famCode) {
@@ -47,29 +47,48 @@ function AllProfiles() {
   }
 
 
+  if(loaded === false) {
+    setTimeout(() => {
+      try {
+        checkHasFam();
+        setLoaded(true);
+      } catch(e) {
+        console.log(e);
+      }
+    }, 500)
+  }
+
+
   return (
     <div>
       {
         session ? (
-        user.famCode ? (
-          <div className="">
-            <Profile userImage={session.user.image} username={session.user.username}/>
-            <ProfileNoInput />
-          </div>
-        ) : (
-          <div>
-            <h1>Logged In, but has no Fam</h1>
+          loaded ? (
 
-            <button
-              type="refresh"
-              onClick={checkHasFam}
-              className="w-[215px] ml-5 mt-4 inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-500 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 sm:text-sm"
-            >
-            {"Update Account"}
-            </button>
-          </div>
-        )
-      ) : (
+            user.famCode ? (
+              <div className="">
+                <Profile userImage={session.user.image} sessionUser={session.user}/>
+                <ProfileNoInput />
+              </div>
+            ) : (
+              <div>
+                <h1>Logged In, but has no Fam</h1>
+
+                <button
+                  type="refresh"
+                  onClick={checkHasFam}
+                  className="w-[215px] ml-5 mt-4 inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-500 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 sm:text-sm"
+                >
+                {"Update Account"}
+                </button>
+              </div>
+            )
+          ) : (
+            <div className="flex flex-col items-center justify-center min-h-screen py-2 px-14 text-center">
+              Loading...
+            </div>
+          )
+        ) : (
         <div className="flex flex-col items-center justify-center min-h-screen py-2 px-14 text-center  bg-gradient-to-r from-orange-400 via-red-500 to-pink-500">
           Please click sign in :)
         </div>

@@ -5,7 +5,7 @@ import { ref } from "@firebase/storage"
 import { addDoc, collection, onSnapshot, deleteDoc, query, orderBy, serverTimestamp, doc, setDoc } from "@firebase/firestore"
 import { useSession } from "next-auth/react"
 
-function Profile({ userImage, username }) {
+function Profile({ userImage, sessionUser }) {
   const nameRef = useRef(null);
   const birthdayRef = useRef(null);
   const statusRef = useRef(null);
@@ -74,21 +74,12 @@ function Profile({ userImage, username }) {
 
         <div className="ml-4 mr-4 pt-4 pl-3 w-96 h-40 rounded-lg">
           <p className="font-bold mt-5 text-lg">Username:</p>
-          <p className="mt-2 text-lg">{username}</p>
+          <p className="mt-2 text-lg">{sessionUser.username}</p>
         </div>
 
         <div className="mr-4 pt-4 pl-3 w-96 h-40 rounded-lg">
           <p className="font-bold mt-5 text-lg">Name: </p>
-          <p>{user.name}</p>
-
-          <div class="font-bold mt-1 mr-4 relative rounded-md shadow-sm">
-            <input
-              type="text"
-              ref={nameRef}
-              class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-12 sm:text-sm border-gray-300 rounded-md"
-              placeholder="Change name here"
-            />
-          </div>
+          <p className="mt-2 text-lg">{sessionUser.name}</p>
         </div>
 
         <div className="mr-4 pt-4 pl-3 w-96 h-40 rounded-lg">
@@ -124,21 +115,12 @@ function Profile({ userImage, username }) {
       <div className='flex'>
         <button
           type="button"
-          onClick={getCurrentUser}
           className="w-[215px] ml-11 mt-4 inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-500 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 sm:text-sm"
         >
-        {"Refresh"}
+        {"Update Profile"}
         </button>
 
-        <button
-          type="button"
-          onClick={updateProfile}
-          className="w-[215px] ml-5 mt-4 inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-500 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 sm:text-sm"
-        >
-        {"Update Account"}
-        </button>
       </div>
-
 
     </div>
   )
