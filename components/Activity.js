@@ -62,7 +62,17 @@ function Activity() {
             <Posts />
           </div>
         ) : (
-          <h1>Logged In, but has no Fam</h1>
+          <div>
+            <h1>Logged In, but has no Fam</h1>
+
+            <button
+              type="refresh"
+              onClick={checkHasFam}
+              className="w-[215px] ml-5 mt-4 inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-500 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 sm:text-sm"
+            >
+            {"Update Account"}
+            </button>
+          </div>
         )
       ) : (
         <div className="flex flex-col items-center justify-center min-h-screen py-2 px-14 text-center  bg-gradient-to-r from-orange-400 via-red-500 to-pink-500">
@@ -73,13 +83,6 @@ function Activity() {
        {console.log(user.username)}
 
 
-      <button
-        type="refresh"
-        onClick={checkHasFam}
-        className="w-[215px] ml-5 mt-4 inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-500 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 sm:text-sm"
-      >
-      {"Update Account"}
-      </button>
 
     </div>
   )
