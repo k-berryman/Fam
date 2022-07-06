@@ -33,7 +33,7 @@ function Modal() {
       username: session.user.username,
       caption: captionRef.current.value,
       profileImg: session.user.image,
-      timestamp: serverTimestamp()
+      timestamp: serverTimestamp(),
     });
 
     console.log("New doc added with ID ", docRef.id)
