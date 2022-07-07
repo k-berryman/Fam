@@ -24,5 +24,5 @@ export default NextAuth({
       return session;
     }
   },
-  secret: process.env.MY_SECRET,
+  secret: process.env.SECRET,
 })
