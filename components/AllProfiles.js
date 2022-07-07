@@ -68,11 +68,12 @@ function AllProfiles() {
             user.famCode ? (
               <div className="">
                 <Profile userImage={session.user.image} sessionUser={session.user}/>
-                <ProfileNoInput />
               </div>
             ) : (
-              <div>
-                <h1>Logged In, but has no Fam</h1>
+              <div className="flex flex-col items-center justify-center min-h-screen py-2 px-14 text-center">
+                <h1>Access Denied</h1>
+                <h1>Ask your Family Admin for access privileges</h1>
+
 
                 <button
                   type="refresh"
