@@ -6,6 +6,11 @@ export default NextAuth({
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      authorization:{
+        params:{
+          scope:"openid https://www.googleapis.com/auth"
+        }
+      }
     })
   ],
   pages: {
@@ -20,6 +25,8 @@ export default NextAuth({
 
       // token.sub is Google's user ID
       session.user.uid = token.sub;
+
+      session.token = token;
 
       return session;
     }
