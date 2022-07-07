@@ -8,7 +8,7 @@ export default NextAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       authorization:{
         params:{
-          scope:"openid https://www.googleapis.com/auth"
+          scope:"openid"
         }
       }
     })
