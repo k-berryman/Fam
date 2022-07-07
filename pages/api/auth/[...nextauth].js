@@ -24,5 +24,5 @@ export default NextAuth({
       return session;
     }
   },
-  secret: "osJy+s78cHjOTfWda0+gA6W4rcwS6o1vnYJgxeRqesw=",
+  secret: "osJy+s78cHjOTfWda0+gA6W4rcwS6o1vnYJgxeRqesw="
 })
