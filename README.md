@@ -1,5 +1,7 @@
 # Fam App
 
+See live app here - capstone-kaitlinberryman-gmailcom.vercel.app
+
 I'm starting off with learning how to make an [Instagram Clone from Sonny Sangha](https://www.youtube.com/watch?v=a6Xs2Ir40OI&t=257s&ab_channel=SonnySangha) using React, Next.js, Tailwind CSS, Firebase v9, NextAuth, Faker.js & Recoil.
 
 ## Set Up
