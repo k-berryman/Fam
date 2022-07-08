@@ -8,7 +8,7 @@ export default NextAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       authorization:{
         params:{
-          scope:"openid"
+          scope:"openid email profile"
         }
       }
     })
@@ -17,6 +17,12 @@ export default NextAuth({
     signIn: "/auth/signin",
   },
   callbacks: {
+    async jwt({ token, account }) {
+      if(!account?.type == 'oauth') {
+        return;
+      }
+      return token;
+    },
     async session({ session, token, user }) {
       session.user.username = session.user.name
         .split(' ')

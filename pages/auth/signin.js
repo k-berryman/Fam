@@ -32,7 +32,6 @@ function signIn({ providers }) {
 export async function getServerSideProps() {
   // Gets providers from pages/api/auth/[...nextauth].js
   const providers = await getProviders();
-  console.log(providers)
 
   // Pass it to the client
   return {
