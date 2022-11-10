@@ -1,6 +1,6 @@
 # Fam App
 
-[Check out the live website here](https://final-rho-five.vercel.app/) https://final-rho-five.vercel.app/ 
+Please see a demo here — https://www.youtube.com/watch?v=39Zhf7T7zQM&t=15s&ab_channel=KaitlinBerryman
 
 I'm starting off with learning how to make an [Instagram Clone from Sonny Sangha](https://www.youtube.com/watch?v=a6Xs2Ir40OI&t=257s&ab_channel=SonnySangha) using React, Next.js, Tailwind CSS, Firebase v9, NextAuth, Faker.js & Recoil.
 
@@ -715,3 +715,8 @@ Attach to heart icon
 Now create a useEffect dependent on hasLiked to check if they've already liked it. Allow for un-liking. Delete the like from firestore
 
 show number of likes
+
+--
+
+[Check out the live website here](https://final-rho-five.vercel.app/) https://final-rho-five.vercel.app/ 
+
